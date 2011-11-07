@@ -30,7 +30,7 @@ BUILDDIR  = tmp/$(LANGUAGE)
 FILEEXTS  = XML xml ENT ent
 IMAGEEXTS = BMP bmp CGM cgm DVI dvi EPS eps EQN eqn FAX fax GIF gif IGS igs \
             PCX pcx PDF pdf PIC pic PNG png SVG svg SWF swf TLB tbl TEX tex \
-            WMF wmf WPG wpg PS ps SGML sgml TIFF tiff 
+            WMF wmf WPG wpg PS ps SGML sgml TIFF tiff
 
 # Prerequisites:
 FILES     = $(foreach ext, $(FILEEXTS),  $(wildcard $(FILEDIR)/*.$(ext)))
@@ -39,29 +39,38 @@ ICONS     = $(foreach ext, $(IMAGEEXTS), $(wildcard $(ICONDIR)/*.$(ext)))
 
 # The following are the make rules;  do not edit  these unless you really know
 # what you are doing:
-.PHONY: html-desktop html-single html epub pdf txt man eclipse all clean test
-
+.PHONY: html-desktop
 html-desktop: $(BUILDDIR)/html-desktop
 
+.PHONY: html-single
 html-single: $(BUILDDIR)/html-single
 
+.PHONY: html
 html: $(BUILDDIR)/html
 
+.PHONY: epub
 epub: $(BUILDDIR)/epub
 
+.PHONY: pdf
 pdf: $(BUILDDIR)/pdf
 
+.PHONY: txt
 txt: $(BUILDDIR)/txt
 
+.PHONY: man
 man: $(BUILDDIR)/man
 
+.PHONY: eclipse
 eclipse: $(BUILDDIR)/eclipse
 
+.PHONY: all
 all: html html-single epub pdf
 
+.PHONY: clean
 clean:
 	$(PUBLICAN) clean
 
+.PHONY: test
 test: $(FILES) $(IMAGES) $(ICONS)
 	$(PUBLICAN) build --lang $(LANGUAGE) --format test
 
