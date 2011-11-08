@@ -15,27 +15,40 @@
 
 SHELL     = /bin/sh
 
+# General settings;  change the path to the publican executable,  the language
+# in  which the  document  is authored, the default configuration file, or the
+# main file of your DocBook project:
+PUBLICAN  = publican
+LANGUAGE  = en-US
+CONFIG    = publican.cfg
+MAINFILE  = $(if $(findstring Book_Info.xml, $(FILES)),Book,Article)_Info.xml
+
 # Known file extensions:
 FILEEXTS  = XML xml ENT ent
 IMAGEEXTS = BMP bmp CGM cgm DVI dvi EPS eps EQN eqn FAX fax GIF gif IGS igs \
             PCX pcx PDF pdf PIC pic PNG png SVG svg SWF swf TLB tbl TEX tex \
             WMF wmf WPG wpg PS ps SGML sgml TIFF tiff
 
-# General settings; change the path to the publican executable or the language
-# in which the document is authored as appropriate:
-PUBLICAN  = publican
-LANGUAGE  = en-US
-
-# Default directories:
+# Known directories:
 FILEDIR  := $(LANGUAGE)
 IMAGEDIR := $(LANGUAGE)/images
 ICONDIR  := $(LANGUAGE)/icons
 BUILDDIR := tmp/$(LANGUAGE)
+PUBDIR    = publish/$(LANGUAGE)/$(PRODNAME)/$(PRODNUM)
 
-# Prerequisites:
+# Essential prerequisites:
 FILES    := $(foreach ext, $(FILEEXTS),  $(wildcard $(FILEDIR)/*.$(ext)))
 IMAGES   := $(foreach ext, $(IMAGEEXTS), $(wildcard $(IMAGEDIR)/*.$(ext)))
 ICONS    := $(foreach ext, $(IMAGEEXTS), $(wildcard $(ICONDIR)/*.$(ext)))
+
+# Helper functions:
+getoption = $(shell ( grep -qe '^[ \t]*$(1):' $(CONFIG) && sed -ne 's/^[ \t]*$(1):[ \t]*\([a-zA-Z0-9._ ]\+\).*/\1/p' $(CONFIG) || sed -ne 's/^.*<$(2)>\(.\+\)<\/$(2)>.*/\1/ip' $(FILEDIR)/$(MAINFILE) ) | sed -e 's/[ \t]*$$//')
+
+# Helper variables:
+EMPTY    :=
+SPACE    := $(EMPTY) $(EMPTY)
+PRODNUM  := $(subst $(SPACE),_,$(call getoption,version,productnumber))
+PRODNAME := $(subst $(SPACE),_,$(call getoption,product,productname))
 
 # The following are the make rules;  do not edit  these unless you really know
 # what you are doing:
@@ -65,6 +78,9 @@ eclipse: $(BUILDDIR)/eclipse
 
 .PHONY: all
 all: html-desktop html-single html epub pdf txt man eclipse
+
+.PHONY: publish
+publish: $(addprefix $(PUBDIR)/, html-single html epub pdf)
 
 .PHONY: clean
 clean:
@@ -97,4 +113,16 @@ $(BUILDDIR)/man: $(FILES) $(IMAGES) $(ICONS)
 
 $(BUILDDIR)/eclipse: $(FILES) $(IMAGES) $(ICONS)
 	$(PUBLICAN) build --lang $(LANGUAGE) --format eclipse
+
+$(PUBDIR)/html-single: $(FILES) $(IMAGES) $(ICONS)
+	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format html-single
+
+$(PUBDIR)/html: $(FILES) $(IMAGES) $(ICONS)
+	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format html
+
+$(PUBDIR)/epub: $(FILES) $(IMAGES) $(ICONS)
+	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format epub
+
+$(PUBDIR)/pdf: $(FILES) $(IMAGES) $(ICONS)
+	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format pdf
 
