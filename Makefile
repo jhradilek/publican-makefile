@@ -13,18 +13,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <http://www.gnu.org/licenses/>.
 
-
-# General settings; change the path to the publican executable or the language
-# in which the document is authored as appropriate:
 SHELL     = /bin/sh
-PUBLICAN  = publican
-LANGUAGE  = en-US
-
-# Default directories:
-FILEDIR   = $(LANGUAGE)
-IMAGEDIR  = $(LANGUAGE)/images
-ICONDIR   = $(LANGUAGE)/icons
-BUILDDIR  = tmp/$(LANGUAGE)
 
 # Known file extensions:
 FILEEXTS  = XML xml ENT ent
@@ -32,10 +21,21 @@ IMAGEEXTS = BMP bmp CGM cgm DVI dvi EPS eps EQN eqn FAX fax GIF gif IGS igs \
             PCX pcx PDF pdf PIC pic PNG png SVG svg SWF swf TLB tbl TEX tex \
             WMF wmf WPG wpg PS ps SGML sgml TIFF tiff
 
+# General settings; change the path to the publican executable or the language
+# in which the document is authored as appropriate:
+PUBLICAN  = publican
+LANGUAGE  = en-US
+
+# Default directories:
+FILEDIR  := $(LANGUAGE)
+IMAGEDIR := $(LANGUAGE)/images
+ICONDIR  := $(LANGUAGE)/icons
+BUILDDIR := tmp/$(LANGUAGE)
+
 # Prerequisites:
-FILES     = $(foreach ext, $(FILEEXTS),  $(wildcard $(FILEDIR)/*.$(ext)))
-IMAGES    = $(foreach ext, $(IMAGEEXTS), $(wildcard $(IMAGEDIR)/*.$(ext)))
-ICONS     = $(foreach ext, $(IMAGEEXTS), $(wildcard $(ICONDIR)/*.$(ext)))
+FILES    := $(foreach ext, $(FILEEXTS),  $(wildcard $(FILEDIR)/*.$(ext)))
+IMAGES   := $(foreach ext, $(IMAGEEXTS), $(wildcard $(IMAGEDIR)/*.$(ext)))
+ICONS    := $(foreach ext, $(IMAGEEXTS), $(wildcard $(ICONDIR)/*.$(ext)))
 
 # The following are the make rules;  do not edit  these unless you really know
 # what you are doing:
