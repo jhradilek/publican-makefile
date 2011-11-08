@@ -33,7 +33,6 @@ Targets
 * **txt** — Builds a plain text file.
 * **man** — Builds a manual page.
 * **eclipse** — Builds an Eclipse help plug-in.
-* **common** — Builds the document in the most common formats. Identical to running the **make** command with the **html**, **html-desktop**, **epub**, and **pdf** targets.
 * **all** — Builds the document in all available formats. Identical to running the **make** command with the **html-desktop**, **html-single**, **html**, **epub**, **pdf**, **txt**, **man**, and **eclipse** targets.
 * **test** — Validates the XML files.
 * **clean** — Removes temporary files and directories.

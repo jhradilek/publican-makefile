@@ -63,9 +63,6 @@ man: $(BUILDDIR)/man
 .PHONY: eclipse
 eclipse: $(BUILDDIR)/eclipse
 
-.PHONY: common
-common: html-single html pdf epub
-
 .PHONY: all
 all: html-desktop html-single html epub pdf txt man eclipse
 
