@@ -19,7 +19,9 @@ The publican-makefile provides a universal makefile to make it easier to build P
 Options
 -------
 
-* **LANGUAGE**=*language_code* — The code of the language in which the document is being written. The default option is **en-US**.
+* **LANGUAGE**=*language_code* — The code of the language in which the document is being written. The default value is **en-US**.
+* **CONFIG**=*file_name* — The configuration file to use. The default value is **publican.cfg**.
+* **MAINFILE**=*file_name* — The file that contains the document metadata. Depending on the document type,  default value is either **Article_Info.xml** or **Book_Info.xml**.
 
 
 Targets
@@ -34,6 +36,7 @@ Targets
 * **man** — Builds a manual page.
 * **eclipse** — Builds an Eclipse help plug-in.
 * **all** — Builds the document in all available formats. Identical to running the **make** command with the **html-desktop**, **html-single**, **html**, **epub**, **pdf**, **txt**, **man**, and **eclipse** targets.
+* **publish** — Prepares HTML, EPUB, and PDF builds that are ready for publishing.
 * **test** — Validates the XML files.
 * **clean** — Removes temporary files and directories.
 
