@@ -34,6 +34,7 @@ FILEDIR  := $(LANGUAGE)
 IMAGEDIR := $(LANGUAGE)/images
 ICONDIR  := $(LANGUAGE)/icons
 BUILDDIR := tmp/$(LANGUAGE)
+RPMDIR   := tmp/rpm
 PUBDIR    = publish/$(LANGUAGE)/$(PRODNAME)/$(PRODNUM)
 
 # Essential prerequisites:
@@ -42,13 +43,17 @@ IMAGES   := $(foreach ext, $(IMAGEEXTS), $(wildcard $(IMAGEDIR)/*.$(ext)))
 ICONS    := $(foreach ext, $(IMAGEEXTS), $(wildcard $(ICONDIR)/*.$(ext)))
 
 # Helper functions:
-getoption = $(shell ( grep -qe '^[ \t]*$(1):' $(CONFIG) && sed -ne 's/^[ \t]*$(1):[ \t]*\([a-zA-Z0-9._ ]\+\).*/\1/p' $(CONFIG) || sed -ne 's/^.*<$(2)>\(.\+\)<\/$(2)>.*/\1/ip' $(FILEDIR)/$(MAINFILE) ) | sed -e 's/[ \t]*$$//')
+getoption = $(shell ( grep -qe '^[ \t]*$(1):' $(CONFIG) && sed -ne 's/^[ \t]*$(1):[ \t]*\([a-zA-Z0-9._ -]\+\).*/\1/p' $(CONFIG) || sed -ne 's/^.*<$(2)>\(.\+\)<\/$(2)>.*/\1/ip' $(FILEDIR)/$(MAINFILE) ) | sed -e 's/[ \t]*$$//')
 
 # Helper variables:
 EMPTY    :=
 SPACE    := $(EMPTY) $(EMPTY)
 PRODNUM  := $(subst $(SPACE),_,$(call getoption,version,productnumber))
 PRODNAME := $(subst $(SPACE),_,$(call getoption,product,productname))
+DOCNAME  := $(subst $(SPACE),_,$(call getoption,docname,title))
+DOCNUM   := $(subst $(SPACE),_,$(call getoption,edition,edition))
+DOCREL   := $(subst $(SPACE),_,$(call getoption,release,pubsnumber))
+PACKAGE  := $(RPMDIR)/$(PRODNAME)-$(DOCNAME)-$(PRODNUM)-web-$(LANGUAGE)-$(DOCNUM)-$(DOCREL).tgz
 
 # The following are the make rules;  do not edit  these unless you really know
 # what you are doing:
@@ -81,6 +86,9 @@ all: html-desktop html-single html epub pdf txt man eclipse
 
 .PHONY: publish
 publish: $(addprefix $(PUBDIR)/, html-single html epub pdf)
+
+.PHONY: package
+package: $(PACKAGE)
 
 .PHONY: clean
 clean:
@@ -125,4 +133,7 @@ $(PUBDIR)/epub: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 
 $(PUBDIR)/pdf: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format pdf && touch $@
+
+$(PACKAGE): $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+	$(PUBLICAN) package --lang $(LANGUAGE)
 
