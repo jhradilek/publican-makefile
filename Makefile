@@ -87,42 +87,42 @@ clean:
 	$(PUBLICAN) clean
 
 .PHONY: test
-test: $(FILES) $(IMAGES) $(ICONS)
+test: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --lang $(LANGUAGE) --format test
 
-$(BUILDDIR)/html-desktop: $(FILES) $(IMAGES) $(ICONS)
+$(BUILDDIR)/html-desktop: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --lang $(LANGUAGE) --format html-desktop && touch $@
 
-$(BUILDDIR)/html-single: $(FILES) $(IMAGES) $(ICONS)
+$(BUILDDIR)/html-single: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --lang $(LANGUAGE) --format html-single && touch $@
 
-$(BUILDDIR)/html: $(FILES) $(IMAGES) $(ICONS)
+$(BUILDDIR)/html: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --lang $(LANGUAGE) --format html && touch $@
 
-$(BUILDDIR)/epub: $(FILES) $(IMAGES) $(ICONS)
+$(BUILDDIR)/epub: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --lang $(LANGUAGE) --format epub && touch $@
 
-$(BUILDDIR)/pdf: $(FILES) $(IMAGES) $(ICONS)
+$(BUILDDIR)/pdf: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --lang $(LANGUAGE) --format pdf && touch $@
 
-$(BUILDDIR)/txt: $(FILES) $(IMAGES) $(ICONS)
+$(BUILDDIR)/txt: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --lang $(LANGUAGE) --format txt && touch $@
 
-$(BUILDDIR)/man: $(FILES) $(IMAGES) $(ICONS)
+$(BUILDDIR)/man: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --lang $(LANGUAGE) --format man && touch $@
 
-$(BUILDDIR)/eclipse: $(FILES) $(IMAGES) $(ICONS)
+$(BUILDDIR)/eclipse: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --lang $(LANGUAGE) --format eclipse && touch $@
 
-$(PUBDIR)/html-single: $(FILES) $(IMAGES) $(ICONS)
+$(PUBDIR)/html-single: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format html-single && touch $@
 
-$(PUBDIR)/html: $(FILES) $(IMAGES) $(ICONS)
+$(PUBDIR)/html: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format html && touch $@
 
-$(PUBDIR)/epub: $(FILES) $(IMAGES) $(ICONS)
+$(PUBDIR)/epub: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format epub && touch $@
 
-$(PUBDIR)/pdf: $(FILES) $(IMAGES) $(ICONS)
+$(PUBDIR)/pdf: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
 	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format pdf && touch $@
 
