@@ -37,6 +37,7 @@ Targets
 * **eclipse** — Builds an Eclipse help plug-in.
 * **all** — Builds the document in all available formats. Identical to running the **make** command with the **html-desktop**, **html-single**, **html**, **epub**, **pdf**, **txt**, **man**, and **eclipse** targets.
 * **publish** — Prepares HTML, EPUB, and PDF builds that are ready for publishing.
+* **package** — Builds a package.
 * **test** — Validates the XML files.
 * **clean** — Removes temporary files and directories.
 
