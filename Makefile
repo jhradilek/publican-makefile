@@ -96,44 +96,44 @@ clean:
 
 .PHONY: test
 test: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --lang $(LANGUAGE) --format test
+	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format test
 
 $(BUILDDIR)/html-desktop: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --lang $(LANGUAGE) --format html-desktop && touch $@
+	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format html-desktop && touch $@
 
 $(BUILDDIR)/html-single: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --lang $(LANGUAGE) --format html-single && touch $@
+	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format html-single && touch $@
 
 $(BUILDDIR)/html: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --lang $(LANGUAGE) --format html && touch $@
+	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format html && touch $@
 
 $(BUILDDIR)/epub: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --lang $(LANGUAGE) --format epub && touch $@
+	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format epub && touch $@
 
 $(BUILDDIR)/pdf: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --lang $(LANGUAGE) --format pdf && touch $@
+	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format pdf && touch $@
 
 $(BUILDDIR)/txt: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --lang $(LANGUAGE) --format txt && touch $@
+	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format txt && touch $@
 
 $(BUILDDIR)/man: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --lang $(LANGUAGE) --format man && touch $@
+	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format man && touch $@
 
 $(BUILDDIR)/eclipse: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --lang $(LANGUAGE) --format eclipse && touch $@
+	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format eclipse && touch $@
 
 $(PUBDIR)/html-single: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format html-single && touch $@
+	$(PUBLICAN) build --publish --embedtoc --config $(CONFIG) --lang $(LANGUAGE) --format html-single && touch $@
 
 $(PUBDIR)/html: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format html && touch $@
+	$(PUBLICAN) build --publish --embedtoc --config $(CONFIG) --lang $(LANGUAGE) --format html && touch $@
 
 $(PUBDIR)/epub: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format epub && touch $@
+	$(PUBLICAN) build --publish --embedtoc --config $(CONFIG) --lang $(LANGUAGE) --format epub && touch $@
 
 $(PUBDIR)/pdf: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) build --publish --embedtoc --lang $(LANGUAGE) --format pdf && touch $@
+	$(PUBLICAN) build --publish --embedtoc --config $(CONFIG) --lang $(LANGUAGE) --format pdf && touch $@
 
 $(PACKAGE): $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
-	$(PUBLICAN) package --lang $(LANGUAGE)
+	$(PUBLICAN) package --config $(CONFIG) --lang $(LANGUAGE)
 
