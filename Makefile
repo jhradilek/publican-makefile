@@ -1,33 +1,36 @@
 # A universal makefile for Publican-managed DocBook projects
-# Copyright (C) 2011 Jaromir Hradilek <jhradilek@redhat.com>
+# Copyright (C) 2011, 2012 Jaromir Hradilek <jhradilek@redhat.com>
 
-# This program is  free software:  you can  redistribute it  and/or  modify it
-# under the terms of the GNU General Public License  as published by the  Free
-# Software Foundation, version 3 of the License.
+# Note:  To get the latest version of this file, run the following command:
+#   		 git clone https://github.com/jhradile/publican-makefile.git
+
+# This program is  free software:  you can redistribute it and/or modify it
+# under  the terms  of the  GNU General Public License  as published by the
+# Free Software Foundation, version 3 of the License.
 #
-# This program is distributed in the hope that it will be useful,  but WITHOUT
-# ANY WARRANTY;  without even the implied warranty of  MERCHANTABILITY or FIT-
-# NESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License  for more
-# details.
+# This program  is  distributed  in the hope  that it will  be useful,  but
+# WITHOUT  ANY WARRANTY;  without  even the implied  warranty of MERCHANTA-
+# BILITY  or  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
+# License for more details.
 #
-# You should have received a copy of the GNU General Public License along with
-# this program. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the  GNU General Public License  along
+# with this program. If not, see <http://www.gnu.org/licenses/>.
 
 SHELL     = /bin/sh
 
-# General settings;  change the path to the publican executable,  the language
-# in  which the  document  is authored, the default configuration file, or the
-# main file of your DocBook project:
+# General settings;  change the path to  the publican executable, the lang-
+# uage in which  the document is authored, the default configuration  file,
+# or the main file of your DocBook project:
 PUBLICAN  = publican
 LANGUAGE  = en-US
 CONFIG    = publican.cfg
-MAINFILE  = $(if $(findstring Book_Info.xml, $(FILES)),Book,Article)_Info.xml
+MAINFILE  = $(if $(findstring Book_Info.xml, $(wildcard $(XML_LANG)/*.xml)),Book,Article)_Info.xml
 
 # Known file extensions:
-FILEEXTS  = XML xml ENT ent
-IMAGEEXTS = BMP bmp CGM cgm DVI dvi EPS eps EQN eqn FAX fax GIF gif IGS igs \
-            PCX pcx PDF pdf PIC pic PNG png SVG svg SWF swf TLB tbl TEX tex \
-            WMF wmf WPG wpg PS ps SGML sgml TIFF tiff
+FILEEXTS  = XML xml ENT ent PO po
+IMAGEEXTS = BMP bmp CGM cgm DVI dvi EPS eps EQN eqn FAX fax GIF gif IGS \
+            igs PCX pcx PDF pdf PIC pic PNG png SVG svg SWF swf TLB tbl \
+            TEX tex WMF wmf WPG wpg PS ps SGML sgml TIFF tiff
 
 # Known directories:
 FILEDIR  := $(LANGUAGE)
@@ -43,11 +46,13 @@ IMAGES   := $(foreach ext, $(IMAGEEXTS), $(wildcard $(IMAGEDIR)/*.$(ext)))
 ICONS    := $(foreach ext, $(IMAGEEXTS), $(wildcard $(ICONDIR)/*.$(ext)))
 
 # Helper functions:
-getoption = $(shell ( grep -qe '^[ \t]*$(1):' $(CONFIG) && sed -ne 's/^[ \t]*$(1):[ \t]*\([a-zA-Z0-9._ -]\+\).*/\1/p' $(CONFIG) || sed -ne 's/^.*<$(2)>\(.\+\)<\/$(2)>.*/\1/ip' $(FILEDIR)/$(MAINFILE) ) | sed -e 's/[ \t]*$$//')
+findfiles = $(foreach ext, $(1),  $(wildcard $(2)/*.$(ext)))
+getoption = $(shell ( grep -qe '^[ \t]*$(1):' $(CONFIG) && sed -ne 's/^[ \t]*$(1):[ \t]*"\?\([a-zA-Z0-9._ -]\+\).*/\1/p' $(CONFIG) || sed -ne 's/^.*<$(2)>\(.\+\)<\/$(2)>.*/\1/ip' $(XML_LANG)/$(MAINFILE) ) | sed -e 's/[ \t]*$$//')
 
 # Helper variables:
 EMPTY    :=
 SPACE    := $(EMPTY) $(EMPTY)
+XML_LANG := $(subst $(SPACE),_,$(call getoption,xml_lang,NULL))
 PRODNUM  := $(subst $(SPACE),_,$(call getoption,version,productnumber))
 PRODNAME := $(subst $(SPACE),_,$(call getoption,product,productname))
 DOCNAME  := $(subst $(SPACE),_,$(call getoption,docname,title))
@@ -55,8 +60,8 @@ DOCNUM   := $(subst $(SPACE),_,$(call getoption,edition,edition))
 DOCREL   := $(subst $(SPACE),_,$(call getoption,release,pubsnumber))
 PACKAGE  := $(RPMDIR)/$(PRODNAME)-$(DOCNAME)-$(PRODNUM)-web-$(LANGUAGE)-$(DOCNUM)-$(DOCREL).tgz
 
-# The following are the make rules;  do not edit  these unless you really know
-# what you are doing:
+# The following are the make rules. Do not edit the rules unless you really
+# know what you are doing:
 .PHONY: html-desktop
 html-desktop: $(BUILDDIR)/html-desktop
 
