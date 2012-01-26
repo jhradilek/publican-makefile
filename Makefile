@@ -2,7 +2,7 @@
 # Copyright (C) 2011, 2012 Jaromir Hradilek <jhradilek@redhat.com>
 
 # Note:  To get the latest version of this file, run the following command:
-#   		 git clone https://github.com/jhradile/publican-makefile.git
+#        git clone https://github.com/jhradile/publican-makefile.git
 
 # This program is  free software:  you can redistribute it and/or modify it
 # under  the terms  of the  GNU General Public License  as published by the
