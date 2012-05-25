@@ -46,8 +46,7 @@ IMAGES   := $(foreach ext, $(IMAGEEXTS), $(wildcard $(IMAGEDIR)/*.$(ext)))
 ICONS    := $(foreach ext, $(IMAGEEXTS), $(wildcard $(ICONDIR)/*.$(ext)))
 
 # Helper functions:
-findfiles = $(foreach ext, $(1),  $(wildcard $(2)/*.$(ext)))
-getoption = $(shell ( grep -qe '^[ \t]*$(1):' $(CONFIG) && sed -ne 's/^[ \t]*$(1):[ \t]*"\?\([a-zA-Z0-9._ -]\+\).*/\1/p' $(CONFIG) || sed -ne 's/^.*<$(2)>\(.\+\)<\/$(2)>.*/\1/ip' $(XML_LANG)/$(MAINFILE) ) | sed -e 's/[ \t]*$$//')
+getoption = $(shell (grep -qe '^[ \t]*$(1):' $(CONFIG) && sed -ne 's/^[ \t]*$(1):[ \t]*"\?\([a-zA-Z0-9._ -]\+\).*/\1/p' $(CONFIG) || sed -ne 's/^.*<$(2)>\(.\+\)<\/$(2)>.*/\1/ip' $(XML_LANG)/$(MAINFILE)) | sed -e 's/[ \t]*$$//')
 
 # Helper variables:
 EMPTY    :=
