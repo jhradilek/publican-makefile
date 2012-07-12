@@ -13,19 +13,25 @@ Synopsis
 Description
 -----------
 
-The publican-makefile provides a universal makefile to make it easier to build Publican-managed DocBook XML projects. To start using it, copy the file named **Makefile** to the root directory of your DocBook project (that is, the directory with the **publican.cfg** file).
+Publican-makefile provides an easy way to build projects managed by Publican, an open-source publishing system for documentation authored in DocBook XML. Once the attached **Makefile** is copied to the root directory of a DocBook project, users can simply type **make** to build an HTML version for the desktop, or use the **make** ***target*** command to build the document in any of the supported formats.
+
+This project does not replace Publican. A working installation of Publican 2.5 or newer is required for the makefile to function.
 
 
 Options
 -------
 
-* **LANGUAGE**=*language_code* — The code of the language in which the document is being written. The default value is **en-US**.
-* **CONFIG**=*file_name* — The configuration file to use. The default value is **publican.cfg**.
-* **MAINFILE**=*file_name* — The file that contains the document metadata. Depending on the document type,  default value is either **Article_Info.xml** or **Book_Info.xml**.
+The following *OPTION*s can be used to customize the way the document is built:
+
+* **LANGUAGE**=*language_code* — Allows you to specify the code of the language in which the document is written. The default value is **en-US** (American English).
+* **CONFIG**=*file_name* — Allows you to specify the configuration file to use. The default value is **publican.cfg**.
+* **MAINFILE**=*file_name* — Allows you to specify the file that contains important document information such as the title, edition, or product name. Depending on the document type, the default value is either **Article_Info.xml** or **Book_Info.xml**.
 
 
 Targets
 -------
+
+The following *TARGET*s can be used to specify what to build:
 
 * **html-desktop** — Builds a single HTML page with the table of contents in the sidebar. This is the default option.
 * **html-single** — Builds a single HTML page with the table of contents at the beginning of the document.
@@ -45,14 +51,21 @@ Targets
 References
 ----------
 
-* [Publican Wiki](https://fedorahosted.org/publican/)
-* [Publican User's Guide](http://jfearn.fedorapeople.org/en-US/Publican/2.7/html/Users_Guide/index.html)
-* [DocBook: The Definitive Guide](http://www.docbook.org/tdg/)
+For more information about Publican or DocBook XML, refer to the following resources:
 
+* [Publican Wiki](https://fedorahosted.org/publican/) — The Publican Wiki serves as the official website for Publican and provides links to other documents, as well as information on how to subscribe to its mailing list or report a bug with Bugzilla.
+* [Publican User's Guide](http://jfearn.fedorapeople.org/en-US/Publican/2.7/html/Users_Guide/index.html) — The Publican User's Guide describes in detail how to install and use Publican to create, manage, and publish DocBook XML-based documents.
+* [DocBook: The Definitive Guide](http://www.docbook.org/tdg/) — DocBook: The Definitive Guide serves as the official documentation and reference book of DocBook XML.
+
+
+See Also
+--------
+
+**publican**(1), **make**(1)
 
 Copyright
 ---------
 
-Copyright © 2011 Jaromir Hradilek
+Copyright © 2011, 2012 Jaromir Hradilek
 
 This program is free software; see the source for copying conditions. It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
