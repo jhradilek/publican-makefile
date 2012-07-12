@@ -34,16 +34,14 @@ IMAGEEXTS = BMP bmp CGM cgm DVI dvi EPS eps EQN eqn FAX fax GIF gif IGS \
 
 # Known directories:
 FILEDIR  := $(LANGUAGE)
-IMAGEDIR := $(LANGUAGE)/images
-ICONDIR  := $(LANGUAGE)/icons
 BUILDDIR := tmp/$(LANGUAGE)
 RPMDIR   := tmp/rpm
 PUBDIR    = publish/$(LANGUAGE)/$(PRODNAME)/$(PRODNUM)
 
 # Essential prerequisites:
-FILES    := $(foreach ext, $(FILEEXTS),  $(wildcard $(FILEDIR)/*.$(ext)))
-IMAGES   := $(foreach ext, $(IMAGEEXTS), $(wildcard $(IMAGEDIR)/*.$(ext)))
-ICONS    := $(foreach ext, $(IMAGEEXTS), $(wildcard $(ICONDIR)/*.$(ext)))
+ALL      := $(shell find en-US \( -name '.*' -prune \) -o -type f -print)
+FILES    := $(foreach ext, $(FILEEXTS),  $(filter %.$(ext), $(ALL)))
+IMAGES   := $(foreach ext, $(IMAGEEXTS), $(filter %.$(ext), $(ALL)))
 
 # Helper functions:
 getoption = $(shell (grep -qe '^[ \t]*$(1):' $(CONFIG) && sed -ne 's/^[ \t]*$(1):[ \t]*"\?\([a-zA-Z0-9._ -]\+\).*/\1/p' $(CONFIG) || sed -ne 's/^.*<$(2)>\(.\+\)<\/$(2)>.*/\1/ip' $(XML_LANG)/$(MAINFILE)) | sed -e 's/[ \t]*$$//')
@@ -99,45 +97,45 @@ clean:
 	$(PUBLICAN) clean
 
 .PHONY: test
-test: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+test: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format test
 
-$(BUILDDIR)/html-desktop: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(BUILDDIR)/html-desktop: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format html-desktop && touch $@
 
-$(BUILDDIR)/html-single: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(BUILDDIR)/html-single: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format html-single && touch $@
 
-$(BUILDDIR)/html: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(BUILDDIR)/html: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format html && touch $@
 
-$(BUILDDIR)/epub: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(BUILDDIR)/epub: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format epub && touch $@
 
-$(BUILDDIR)/pdf: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(BUILDDIR)/pdf: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format pdf && touch $@
 
-$(BUILDDIR)/txt: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(BUILDDIR)/txt: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format txt && touch $@
 
-$(BUILDDIR)/man: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(BUILDDIR)/man: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format man && touch $@
 
-$(BUILDDIR)/eclipse: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(BUILDDIR)/eclipse: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --config $(CONFIG) --lang $(LANGUAGE) --format eclipse && touch $@
 
-$(PUBDIR)/html-single: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(PUBDIR)/html-single: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --publish --embedtoc --config $(CONFIG) --lang $(LANGUAGE) --format html-single && touch $@
 
-$(PUBDIR)/html: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(PUBDIR)/html: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --publish --embedtoc --config $(CONFIG) --lang $(LANGUAGE) --format html && touch $@
 
-$(PUBDIR)/epub: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(PUBDIR)/epub: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --publish --embedtoc --config $(CONFIG) --lang $(LANGUAGE) --format epub && touch $@
 
-$(PUBDIR)/pdf: $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(PUBDIR)/pdf: $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) build --publish --embedtoc --config $(CONFIG) --lang $(LANGUAGE) --format pdf && touch $@
 
-$(PACKAGE): $(FILES) $(IMAGES) $(ICONS) $(CONFIG)
+$(PACKAGE): $(FILES) $(IMAGES) $(CONFIG)
 	$(PUBLICAN) package --config $(CONFIG) --lang $(LANGUAGE)
 
