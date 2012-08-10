@@ -21,7 +21,7 @@ This project does not replace Publican. A working installation of Publican 2.5 o
 Options
 -------
 
-The following *OPTION*s can be used to customize the way the document is built:
+The following OPTIONs can be used to customize the way the document is built:
 
 * **LANGUAGE**=*language_code* — Allows you to specify the code of the language in which the document is written. The default value is **en-US** (American English).
 * **CONFIG**=*file_name* — Allows you to specify the configuration file to use. The default value is **publican.cfg**.
@@ -31,7 +31,7 @@ The following *OPTION*s can be used to customize the way the document is built:
 Targets
 -------
 
-The following *TARGET*s can be used to specify what to build:
+The following TARGETs can be used to specify what to build:
 
 * **html-desktop** — Builds a single HTML page with the table of contents in the sidebar. This is the default option.
 * **html-single** — Builds a single HTML page with the table of contents at the beginning of the document.
@@ -54,7 +54,7 @@ References
 For more information about Publican or DocBook XML, refer to the following resources:
 
 * [Publican Wiki](https://fedorahosted.org/publican/) — The Publican Wiki serves as the official website for Publican and provides links to other documents, as well as information on how to subscribe to its mailing list or report a bug with Bugzilla.
-* [Publican User's Guide](http://jfearn.fedorapeople.org/en-US/Publican/2.7/html/Users_Guide/index.html) — The Publican User's Guide describes in detail how to install and use Publican to create, manage, and publish DocBook XML-based documents.
+* [Publican User's Guide](http://jfearn.fedorapeople.org/en-US/Publican/3.0/html/Users_Guide/index.html) — The Publican User's Guide describes in detail how to install and use Publican to create, manage, and publish DocBook XML-based documents.
 * [DocBook: The Definitive Guide](http://www.docbook.org/tdg/) — DocBook: The Definitive Guide serves as the official documentation and reference book of DocBook XML.
 
 
