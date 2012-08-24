@@ -53,9 +53,7 @@ XML_LANG := $(subst $(SPACE),_,$(call getoption,xml_lang,NULL))
 PRODNUM  := $(subst $(SPACE),_,$(call getoption,version,productnumber))
 PRODNAME := $(subst $(SPACE),_,$(call getoption,product,productname))
 DOCNAME  := $(subst $(SPACE),_,$(call getoption,docname,title))
-DOCNUM   := $(subst $(SPACE),_,$(call getoption,edition,edition))
-DOCREL   := $(subst $(SPACE),_,$(call getoption,release,pubsnumber))
-PACKAGE  := $(RPMDIR)/$(PRODNAME)-$(DOCNAME)-$(PRODNUM)-web-$(LANGUAGE)-$(DOCNUM)-$(DOCREL).tgz
+PACKAGE  := $(RPMDIR)/$(PRODNAME)-$(DOCNAME)-$(PRODNUM)-web-$(LANGUAGE).spec
 
 # The following are the make rules. Do not edit the rules unless you really
 # know what you are doing:
