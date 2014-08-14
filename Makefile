@@ -44,7 +44,7 @@ FILES    := $(foreach ext, $(FILEEXTS),  $(filter %.$(ext), $(ALL)))
 IMAGES   := $(foreach ext, $(IMAGEEXTS), $(filter %.$(ext), $(ALL)))
 
 # Helper functions:
-getoption = $(shell (grep -qe '^[ \t]*$(1):' $(CONFIG) && sed -ne 's/^[ \t]*$(1):[ \t]*"\?\([a-zA-Z0-9._ -]\+\).*/\1/p' $(CONFIG) || sed -ne 's/^.*<$(2)>\(.\+\)<\/$(2)>.*/\1/ip' $(XML_LANG)/$(MAINFILE)) | sed -e 's/[ \t]*$$//')
+getoption = $(shell (grep -qe '^[ \t]*$(1):' $(CONFIG) && sed -ne 's/^[ \t]*$(1):[ \t]*"\?\([a-zA-Z0-9._ -]\+\).*/\1/p' $(CONFIG) || echo '<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:output method="text" /><xsl:template match="/articleinfo|/bookinfo"><xsl:value-of select="$(2)" /></xsl:template></xsl:stylesheet>' | xsltproc -nonet - $(XML_LANG)/$(MAINFILE) 2>/dev/null) | sed -e 's/\xC2\xA0/ /g')
 
 # Helper variables:
 EMPTY    :=
