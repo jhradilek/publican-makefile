@@ -1,5 +1,5 @@
 # A universal makefile for Publican-managed DocBook projects
-# Copyright (C) 2011, 2012, 2013 Jaromir Hradilek <jhradilek@redhat.com>
+# Copyright (C) 2011-2014 Jaromir Hradilek <jhradilek@redhat.com>
 
 # Note:  To get the latest version of this file, run the following command:
 #        git clone https://github.com/jhradilek/publican-makefile.git

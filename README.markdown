@@ -70,6 +70,6 @@ For more information about Publican or DocBook XML, refer to the following resou
 
 ## Copyright
 
-Copyright © 2011–2013 Jaromir Hradilek
+Copyright © 2011–2014 Jaromir Hradilek
 
 This program is free software; see the source for copying conditions. It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
